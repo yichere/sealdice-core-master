@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 func Base64ToImage(base64value string) string {
@@ -32,7 +31,7 @@ func Base64ToImage(base64value string) string {
 
 	// 构建文件路径
 	filePath := filepath.Join(tempDir, filename+".png")
-
+	filePath = filepath.ToSlash(filePath)
 	// 将数据写入文件
 	fi, err := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0664)
 	if err != nil {
@@ -48,7 +47,5 @@ func Base64ToImage(base64value string) string {
 
 	fmt.Println("File saved to:", filePath)
 
-	result := strings.Replace(filePath, "\\", "\\\\", -1)
-
-	return "file://" + result
+	return "file://" + filePath
 }
