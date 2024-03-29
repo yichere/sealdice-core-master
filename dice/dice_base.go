@@ -4,7 +4,6 @@ import (
 	"crypto/md5"
 	"encoding/base64"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -35,7 +34,14 @@ func Base64ToImage(base64value string) string {
 	filePath := filepath.Join(tempDir, filename+".png")
 
 	// 将数据写入文件
-	err = ioutil.WriteFile(filePath, data, 0644)
+	fi, err := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0664)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer fi.Close()
+
+	_, err = fi.WriteString(string(data))
+
 	if err != nil {
 		fmt.Println("Error writing file:", err)
 	}
