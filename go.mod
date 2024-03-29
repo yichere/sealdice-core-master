@@ -62,7 +62,7 @@ require (
 	github.com/mozillazg/go-pinyin v0.20.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/open-dingtalk/dingtalk-stream-sdk-go v0.8.0
-	github.com/pelletier/go-toml/v2 v2.1.1
+	github.com/pelletier/go-toml/v2 v2.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/samber/lo v1.39.0
 	github.com/schollz/progressbar/v3 v3.14.2
@@ -97,7 +97,6 @@ require (
 	github.com/blevesearch/zapx/v13 v13.3.10 // indirect
 	github.com/blevesearch/zapx/v14 v14.3.10 // indirect
 	github.com/blevesearch/zapx/v15 v15.3.13 // indirect
-	github.com/cratonica/2goarray v0.0.0-20190331194516-514510793eaa // indirect
 	github.com/dchest/siphash v1.2.2 // indirect
 	github.com/dlclark/regexp2 v1.10.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
