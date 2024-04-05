@@ -502,6 +502,16 @@ func diceServe(d *dice.Dice) {
 					dice.ServeDingTalk(d, conn)
 				case "SEALCHAT":
 					dice.ServeSealChat(d, conn)
+				case "WECHAT":
+					pa := conn.Adapter.(*dice.PlatformOnebot12)
+					dice.ServeWechat(d, conn, dice.GoCqhttpLoginInfo{
+						Password:         pa.InPackGoCqhttpPassword,
+						Protocol:         pa.InPackGoCqhttpProtocol,
+						AppVersion:       pa.InPackGoCqhttpAppVersion,
+						IsAsyncRun:       true,
+						UseSignServer:    pa.UseSignServer,
+						SignServerConfig: pa.SignServerConfig,
+					})
 				}
 			}(_conn)
 		} else {
