@@ -85,10 +85,8 @@ func RegisterBuiltinState(self *Dice) {
 			switch ctx.PrivilegeLevel {
 			case 100:
 				f()
-				break
 			default:
 				ReplyToSender(ctx, msg, "你无权这样做")
-				break
 			}
 			return CmdExecuteResult{Matched: true, Solved: true}
 		},
