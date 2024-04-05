@@ -20,6 +20,7 @@ func (d *Dice) RegisterBuiltinExt() {
 	RegisterBuiltinExtDnd5e(d)
 	RegisterBuiltinStory(d)
 	RegisterBuiltinExtExp(d)
+	RegisterBuiltinState(d)
 }
 
 // RegisterExtension 注册扩展
