@@ -5,15 +5,16 @@ import (
 	"crypto/md5"
 	"encoding/base64"
 	"fmt"
-	"github.com/shirou/gopsutil/v3/cpu"
-	"github.com/shirou/gopsutil/v3/disk"
-	"github.com/shirou/gopsutil/v3/mem"
-	"go.uber.org/zap"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/shirou/gopsutil/v3/cpu"
+	"github.com/shirou/gopsutil/v3/disk"
+	"github.com/shirou/gopsutil/v3/mem"
+	"go.uber.org/zap"
 )
 
 func Base64ToImageFunc(logger *zap.SugaredLogger) func(string) string {
