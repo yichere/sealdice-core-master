@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-func Base64ToImageFunc(logger *zap.SugaredLogger) func(string) string { //nolint:gosec
+func Base64ToImageFunc(logger *zap.SugaredLogger) func(string) string { //nolint
 
 	return func(b64 string) string {
 		//use logger here
@@ -48,12 +48,12 @@ func Base64ToImageFunc(logger *zap.SugaredLogger) func(string) string { //nolint
 		return "file://" + imageurlPath
 	}
 }
-func RegisterBuiltinState(self *Dice) {
+func RegisterBuiltinState(self *Dice) { //nolint
 	cmdState := &CmdItemInfo{
 		Name:      "state",
 		ShortHelp: ".state",
 		Help:      "实时获取系统运行状态",
-		Solve: func(ctx *MsgContext, msg *Message, cmdArgs *CmdArgs) CmdExecuteResult {
+		Solve: func(ctx *MsgContext, msg *Message, cmdArgs *CmdArgs) CmdExecuteResult { //nolint
 			f := func() CmdExecuteResult {
 				v, _ := mem.VirtualMemory()
 				m := "总内存：" + strconv.FormatFloat(float64(v.Total)/(1024*1024*1024), 'f', 4, 64) + "GB ，"
