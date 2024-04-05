@@ -1,3 +1,4 @@
+//nolint:gosec
 package dice
 
 import (
@@ -15,24 +16,23 @@ import (
 	"strings"
 )
 
-func Base64ToImageFunc(logger *zap.SugaredLogger) func(string) string { //nolint
-
+func Base64ToImageFunc(logger *zap.SugaredLogger) func(string) string {
 	return func(b64 string) string {
-		//use logger here
-		//解码 Base64 值
+		// use logger here
+		// 解码 Base64 值
 		data, err := base64.StdEncoding.DecodeString(b64)
 		if err != nil {
 			logger.Errorf("不合法的base64值：%s", b64)
-			return "" //出现错误，拒绝向下执行
+			return "" // 出现错误，拒绝向下执行
 		}
-		//计算 MD5 哈希值作为文件名
+		// 计算 MD5 哈希值作为文件名
 		hash := md5.Sum(data)
 		filename := fmt.Sprintf("%x", hash)
 		tempDir := os.TempDir()
-		//构建文件路径
+		// 构建文件路径
 		imageurlPath := filepath.Join(tempDir, filename)
 		imageurlPath = filepath.ToSlash(imageurlPath)
-		//将数据写入文件
+		// 将数据写入文件
 		fi, err := os.OpenFile(imageurlPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0664)
 		if err != nil {
 			logger.Errorf("创建文件出错%s", err.Error())
@@ -48,12 +48,12 @@ func Base64ToImageFunc(logger *zap.SugaredLogger) func(string) string { //nolint
 		return "file://" + imageurlPath
 	}
 }
-func RegisterBuiltinState(self *Dice) { //nolint
+func RegisterBuiltinState(self *Dice) {
 	cmdState := &CmdItemInfo{
 		Name:      "state",
 		ShortHelp: ".state",
 		Help:      "实时获取系统运行状态",
-		Solve: func(ctx *MsgContext, msg *Message, cmdArgs *CmdArgs) CmdExecuteResult { //nolint
+		Solve: func(ctx *MsgContext, msg *Message, cmdArgs *CmdArgs) CmdExecuteResult {
 			f := func() CmdExecuteResult {
 				v, _ := mem.VirtualMemory()
 				m := "总内存：" + strconv.FormatFloat(float64(v.Total)/(1024*1024*1024), 'f', 4, 64) + "GB ，"
@@ -70,7 +70,7 @@ func RegisterBuiltinState(self *Dice) { //nolint
 				var d string
 				for _, dp := range diskPart {
 					d += "分区：" + dp.Mountpoint + "， "
-					d = strings.Replace(d, ":", "", -1)
+					d = strings.ReplaceAll(d, ":", "")
 					d += "文件系统：" + dp.Fstype + "， "
 					diskUsed, _ := disk.Usage(dp.Mountpoint)
 					d += "分区总大小：" + strconv.Itoa(int(diskUsed.Total/(1024*1024*1024))) + "GB， "
